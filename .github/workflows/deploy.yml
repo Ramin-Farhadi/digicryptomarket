@@ -1,0 +1,24 @@
+name: Deploy to Bitnami
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v0.1.0
+      with:
+        host: ${{ secrets.BITNAMI_IP }}
+        username: bitnami
+        key: ${{ secrets.BITNAMI_SSH_KEY }}
+        port: 22
+        script: |
+          cd /bitnami/wordpress
+          git pull origin main
