@@ -18,6 +18,7 @@ jobs:
         host: ${{ secrets.BITNAMI_IP }}
         username: bitnami
         key: ${{ secrets.BITNAMI_SSH_KEY }}
+        passphrase: ''
         port: 22
         script: |
           cd ../../bitnami/wordpress
