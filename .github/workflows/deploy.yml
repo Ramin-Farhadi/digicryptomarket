@@ -20,5 +20,5 @@ jobs:
         key: ${{ secrets.BITNAMI_SSH_KEY }}
         port: 22
         script: |
-          cd /bitnami/wordpress
+          cd ../bitnami/wordpress
           git pull origin main
