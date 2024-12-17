@@ -1,4 +1,4 @@
-name: Deploy to Bitnami
+name: Deploy to Lightsail
 
 on:
   push:
@@ -8,18 +8,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Deploy via SSH
+    - name: Deploy to Lightsail
       uses: appleboy/ssh-action@v0.1.0
       with:
-        host: ${{ secrets.BITNAMI_IP }}
+        host: ${{ secrets.LIGHTSAIL_HOST }}
         username: bitnami
-        key: ${{ secrets.BITNAMI_SSH_KEY }}
-        passphrase: ''
+        key: ${{ secrets.LIGHTSAIL_PRIVATE_KEY }}
         port: 22
         script: |
           cd ../../bitnami/wordpress
+          git reset --hard
           git pull origin main
