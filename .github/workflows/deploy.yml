@@ -3,7 +3,7 @@ name: Deploy to Lightsail
 on:
   push:
     branches:
-      - master  # Trigger on push to the main branch
+      - main  # Trigger on push to the "main" branch
 
 jobs:
   deploy:
@@ -13,10 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3  # Fetch the repository code
 
-    - name: Connect to Lightsail and Pull Updates
-      run: |
-        ssh -i ${{ secrets.LIGHTSAIL_PRIVATE_KEY }} bitnami@${{ secrets.LIGHTSAIL_HOST }} << 'EOF'
+    - name: Deploy to Lightsail
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.LIGHTSAIL_HOST }}        # Server IP
+        username: bitnami                          # SSH username
+        key: ${{ secrets.LIGHTSAIL_PRIVATE_KEY }}  # Private key from Secrets
+        port: 22                                   # SSH port
+        script: |
           cd ../../bitnami/wordpress
           git reset --hard
-          git pull origin master
-        EOF
+          git pull origin main
