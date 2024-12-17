@@ -13,16 +13,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3  # Fetch the repository code
 
-    - name: Set up SSH Key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.LIGHTSAIL_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.LIGHTSAIL_HOST }} >> ~/.ssh/known_hosts
-
     - name: Connect to Lightsail and Pull Updates
       run: |
-        ssh -i ~/.ssh/id_rsa bitnami@${{ secrets.LIGHTSAIL_HOST }} << 'EOF'
+        ssh -i ${{ secrets.LIGHTSAIL_PRIVATE_KEY }} bitnami@${{ secrets.LIGHTSAIL_HOST }} << 'EOF'
           cd ../../bitnami/wordpress
           git reset --hard
           git pull origin master
