@@ -1,9 +1,9 @@
-name: Deploy to Lightsail
+name: Deploy to digicryptomarket_test
 
 on:
   push:
     branches:
-      - master  # Trigger on push to the "main" branch
+      - test  # Trigger on push to the "main" branch
 
 jobs:
   deploy:
@@ -23,4 +23,4 @@ jobs:
         script: |
           cd ../../bitnami/wordpress
           git reset --hard
-          git pull origin master
+          git pull origin test
