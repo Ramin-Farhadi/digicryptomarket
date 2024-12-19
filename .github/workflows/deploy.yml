@@ -16,9 +16,9 @@ jobs:
     - name: Deploy to Lightsail
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: ${{ secrets.LIGHTSAIL_HOST }}        # Server IP
+        host: ${{ secrets.LIGHTSAIL_TEST_HOST }}        # Server IP
         username: bitnami                          # SSH username
-        key: ${{ secrets.LIGHTSAIL_PRIVATE_KEY }}  # Private key from Secrets
+        key: ${{ secrets.LIGHTSAIL_TEST_PRIVATE_KEY }}  # Private key from Secrets
         port: 22                                   # SSH port
         script: |
           cd ../../bitnami/wordpress
