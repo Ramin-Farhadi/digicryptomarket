@@ -1,4 +1,4 @@
-name: Deploy to Lightsail
+name: Deploy DigiCryptoMarket
 
 on:
   push:
@@ -21,6 +21,6 @@ jobs:
         key: ${{ secrets.LIGHTSAIL_PRIVATE_KEY }}  # Private key from Secrets
         port: 22                                   # SSH port
         script: |
-          cd ../../bitnami/wordpress
+          cd ../../bitnami/wordpress/wp-content/themes
           git reset --hard
           git pull origin master
